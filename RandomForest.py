@@ -5,7 +5,6 @@ import joblib
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
-# Load preprocessed data
 data = pd.read_csv('../data/preprocessed_data3.csv')
 
 # Split data into features (X) and target (y)

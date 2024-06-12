@@ -5,7 +5,6 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import joblib
 from sklearn.preprocessing import LabelEncoder
 
-# Load preprocessed data
 data = pd.read_csv('data/preprocessed_data.csv')
 
 # Split data into features (X) and target (y)

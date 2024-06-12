@@ -1,7 +1,7 @@
 import joblib
 import pandas as pd
 
-# Load the model
+
 model = joblib.load('../models/LogisticRegression_model2.joblib')
 
 # Example test data (replace with actual data if available)

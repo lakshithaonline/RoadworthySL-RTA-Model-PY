@@ -19,7 +19,7 @@ random_values = {
     'Speedometer': 7,
     'Exhaust System': 8,
     'Fuel System': 7,
-    'Final Score': 66.86
+    'Final Score': 70.86
 }
 
 test_data = pd.DataFrame([random_values])
