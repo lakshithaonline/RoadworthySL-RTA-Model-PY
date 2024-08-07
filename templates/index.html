@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOF - Predictive Support System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            grid-column: 1 / 2;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+
+        .output-container {
+            grid-column: 2 / 3;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .input-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 200px; /* Flex-grow, flex-shrink, flex-basis */
+            margin-bottom: 10px;
+        }
+
+        .input-container input[type="number"] {
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 100%;
+        }
+
+        .input-container label {
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #737475;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #737475;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #414142;
+        }
+
+        .output-container h2,
+        .output-container h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .content {
+            background-size: cover;
+            background-color: #333333;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            padding-left: 20px;
+            text-align: center;
+            grid-column: 1 / -1;
+            color: white;
+        }
+
+        .content h1 {
+            font-size: 2rem;
+            color: #d8d5d5;
+        }
+        .warning {
+            margin-top: 20px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .warning h3 {
+            margin-bottom: 10px;
+            color: #721c24;
+            font-weight: bold;
+        }
+
+        .warning table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .warning th, .warning td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .warning th {
+            background-color: #f2f2f2;
+        }
+
+        .warning tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .output-container button {
+            margin-top: 20px; /* Adjust the value as needed */
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>WOF - Predictive Support System</h1>
+    </div>
+    <div class="form-container">
+        <form method="POST" id="predictionForm">
+            <div class="input-container">
+                <label for="Tyres">Tyres</label>
+                <input type="number" step="0.01" id="Tyres" name="Tyres" required min="0" max="10" value="{{ request.form['Tyres'] if 'Tyres' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Brakes">Brakes</label>
+                <input type="number" step="0.01" id="Brakes" name="Brakes" required min="0" max="10" value="{{ request.form['Brakes'] if 'Brakes' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Suspension">Suspension</label>
+                <input type="number" step="0.01" id="Suspension" name="Suspension" required min="0" max="10" value="{{ request.form['Suspension'] if 'Suspension' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Body_and_Chassis">Body and Chassis</label>
+                <input type="number" step="0.01" id="Body_and_Chassis" name="Body_and_Chassis" required min="0" max="10" value="{{ request.form['Body_and_Chassis'] if 'Body_and_Chassis' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Lights">Lights</label>
+                <input type="number" step="0.01" id="Lights" name="Lights" required min="0" max="10" value="{{ request.form['Lights'] if 'Lights' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Glazing">Glazing</label>
+                <input type="number" step="0.01" id="Glazing" name="Glazing" required min="0" max="10" value="{{ request.form['Glazing'] if 'Glazing' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Wipers">Wipers</label>
+                <input type="number" step="0.01" id="Wipers" name="Wipers" required min="0" max="10" value="{{ request.form['Wipers'] if 'Wipers' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Doors">Doors</label>
+                <input type="number" step="0.01" id="Doors" name="Doors" required min="0" max="10" value="{{ request.form['Doors'] if 'Doors' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Seat_Belts">Seat Belts</label>
+                <input type="number" step="0.01" id="Seat_Belts" name="Seat_Belts" required min="0" max="10" value="{{ request.form['Seat_Belts'] if 'Seat_Belts' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Airbags">Airbags</label>
+                <input type="number" step="0.01" id="Airbags" name="Airbags" required min="0" max="10" value="{{ request.form['Airbags'] if 'Airbags' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Speedometer">Speedometer</label>
+                <input type="number" step="0.01" id="Speedometer" name="Speedometer" required min="0" max="10" value="{{ request.form['Speedometer'] if 'Speedometer' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Exhaust_System">Exhaust System</label>
+                <input type="number" step="0.01" id="Exhaust_System" name="Exhaust_System" required min="0" max="10" value="{{ request.form['Exhaust_System'] if 'Exhaust_System' in request.form else '' }}">
+            </div>
+            <div class="input-container">
+                <label for="Fuel_System">Fuel System</label>
+                <input type="number" step="0.01" id="Fuel_System" name="Fuel_System" required min="0" max="10" value="{{ request.form['Fuel_System'] if 'Fuel_System' in request.form else '' }}">
+            </div>
+            <button type="submit">Predict</button>
+            <button type="button" style="background-color: #000000" onclick="resetForm()">Reset</button>
+        </form>
+    </div>
+
+    <div class="output-container" id="predictionResult">
+        {% if outcome is not none %}
+        <h2>Predicted Outcome: {{ outcome }}</h2>
+        <h3>Confidence: {{ confidence }}</h3>
+        <h3>Final Score: {{ final_score }}</h3>
+        {% endif %}
+        {% if high_critical_concern %}
+        <div class="warning">
+            <h3>High Critical Concern:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Score</th>
+                        <th>Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for param_data in high_critical_concern %}
+                    <tr>
+                        <td>{{ param_data.parameter }}</td>
+                        <td>{{ param_data.score }}</td>
+                        <td>{{ param_data.severity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        <button type="button" style="background-color: #737475; color: #fff"  onclick="exportReport()">Export Report</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        function exportReport() {
+            // Create a new jsPDF instance
+            const doc = new jsPDF();
+
+            // Add content to the PDF
+            doc.text('WOF - Predictive Support System Report', 10, 10);
+            doc.text('-----------------------------', 10, 20);
+
+            // Add data from the report (example data)
+            const reportData = [
+                { parameter: 'Tyres', score: 8, severity: 'High' },
+                { parameter: 'Brakes', score: 9, severity: 'High' },
+                // Add more data as needed
+            ];
+
+            let y = 30;
+            reportData.forEach((data, index) => {
+                doc.text(`${index + 1}. Parameter: ${data.parameter}`, 10, y);
+                doc.text(`   Score: ${data.score}`, 10, y + 10);
+                doc.text(`   Severity: ${data.severity}`, 10, y + 20);
+                y += 40; // Increase the y position for next data
+            });
+
+            // Save the PDF
+            doc.save('WOF_Report.pdf');
+        }
+    </script>
+
+
+
+    <script>
+        function resetForm() {
+            document.getElementById('Tyres').value = '';
+            document.getElementById('Brakes').value = '';
+            document.getElementById('Suspension').value = '';
+            document.getElementById('Body_and_Chassis').value = '';
+            document.getElementById('Lights').value = '';
+            document.getElementById('Glazing').value = '';
+            document.getElementById('Wipers').value = '';
+            document.getElementById('Doors').value = '';
+            document.getElementById('Seat_Belts').value = '';
+            document.getElementById('Airbags').value = '';
+            document.getElementById('Speedometer').value = '';
+            document.getElementById('Exhaust_System').value = '';
+            document.getElementById('Fuel_System').value = '';
+            document.getElementById('predictionResult').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
