@@ -1,15 +1,11 @@
-import numpy as np
-from scipy.stats import ttest_1samp
 import joblib
 import pandas as pd
-from sklearn.metrics import accuracy_score
+from scipy.stats import ttest_1samp
 from sklearn.model_selection import LeaveOneOut, cross_val_score
 from sklearn.utils import shuffle
 
-# Load the Random Forest model
 model_rf = joblib.load('../models/RandomForest_model.joblib')
 
-# Example test.joblib data (replace with actual data)
 test_data = pd.DataFrame({
     'Tyres': [2, 3, 4, 5, 6],
     'Brakes': [1, 2, 1, 2, 3],
@@ -24,31 +20,24 @@ test_data = pd.DataFrame({
     'Speedometer': [5, 4, 3, 6, 5],
     'Exhaust System': [7, 6, 8, 7, 6],
     'Fuel System': [4, 5, 3, 4, 6],
-    'Final Score': [70, 60, 80, 50, 90]  # Example feature
+    'Final Score': [70, 60, 80, 50, 90]
 })
 
-# Example true labels
 true_labels = [1, 0, 1, 0, 1]
 
-# Shuffle test.joblib data and labels for cross-validation
 test_data, true_labels = shuffle(test_data, pd.Series(true_labels), random_state=42)
 
-# Use Leave-One-Out Cross-Validation
 loo = LeaveOneOut()
 
-# Evaluate using cross-validation
 cv_scores_rf = cross_val_score(model_rf, test_data, true_labels, cv=loo, scoring='accuracy')
 
-# Define baseline performance (e.g., a naive model or previous benchmark)
-baseline_performance = 0.5  # Example: a simple baseline accuracy
+baseline_performance = 0.5
 
-# Perform one-sample t-test.joblib
 t_stat, p_value = ttest_1samp(cv_scores_rf, baseline_performance)
 
 print(f"T-Statistic: {t_stat:.2f}")
 print(f"P-Value: {p_value:.4f}")
 
-# Interpretation
 alpha = 0.05
 if p_value < alpha:
     print("The performance of the Random Forest model is significantly better than the baseline.")

@@ -1,12 +1,9 @@
 import joblib
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# Load the model
 model_rf = joblib.load('../models/RandomForest_model.joblib')
 
-# Example test.joblib data (replace with actual data)
 test_data = pd.DataFrame({
     'Tyres': [2, 3, 4, 5, 6],
     'Brakes': [1, 2, 1, 2, 3],
@@ -24,13 +21,10 @@ test_data = pd.DataFrame({
     'Final Score': [76, 60, 80, 50, 90]
 })
 
-# Example true labels
 true_labels = [1, 0, 1, 0, 1]
 
-# Initial predictions
 predictions_rf = model_rf.predict(test_data)
 
-# Calculate metrics
 accuracy_rf = accuracy_score(true_labels, predictions_rf)
 precision_rf = precision_score(true_labels, predictions_rf)
 recall_rf = recall_score(true_labels, predictions_rf)
